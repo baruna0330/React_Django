@@ -1,0 +1,339 @@
+.rc-container {
+    display: inline !important;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: normal;
+    font-size:20px;
+    color:white;
+    margin-right: 3rem;
+    padding-top: .3rem;
+}
+
+ /** Hide the browser's default checkbox **/
+ .rc-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+/** Create a custom checkbox **/
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #fff;
+    border: #4e4e87 2px solid;
+}
+/** set round corner for radio button **/
+.checkmark.r {
+    border-radius: 50%;
+}
+/** On mouse-over, add a grey background color **/
+.rc-container:hover input ~ .checkmark {
+    background-color: #fff;
+}
+/** When the checkbox is checked, add a blue background **/
+.rc-container input:checked ~ .checkmark {
+    background-color: #4e4e87;
+}
+/** Create the checkmark/indicator (hidden when not checked) **/
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/** Show the checkmark when checked **/
+.rc-container input:checked ~ .checkmark:after {
+    display: block;
+}
+/** Style the checkmark/indicator **/
+.rc-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 .15rem .15rem 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* emotion checkbox */
+.emotion{
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.emotion input{
+    display: none;
+}
+.emotion span{
+    position:relative;
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    width:80px;
+    padding: 10px;
+    text-align: center;
+    height:25px;
+}
+.emotion input:checked~span{
+    border-radius: 1rem;
+    background:  #2A2649;
+    color:white;
+}
+.happy:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+.funny:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+.sad:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+.angry:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+.stress:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+.guitar:hover{
+    background: #2A2649;
+    border-radius: 1rem;
+}
+label input{
+    color: white;
+}
+
+
+.edit{
+    display: flex;
+}
+
+#here{
+    background-color: white;
+    border-radius: 1rem;
+    height: 40px;
+    width: 60px;
+    color: black;
+    font-size: 18px;
+    font-family: 'DOSGothic';
+    border: 0;
+    cursor: pointer;
+}
+/****new post modal******/
+
+
+/* new post button */
+.new{
+    display: inline-block;
+    position: absolute;
+    top: 6vh;
+    right: 1vh;
+    z-index: 11;
+}
+.new:hover{
+    top: 7vh;
+}
+#myBtn{
+    border: none;
+    background: transparent;
+    color: white;
+    font-family: 'UhBeemysen';
+    font-size: 40px;
+    text-shadow: 0 0 5px rgb(255, 237, 188);
+    transition: all 1000ms step;
+}
+#myBtn:hover{
+    cursor: pointer;
+}
+
+/* edit, delete buttons */
+.bt{
+    background: transparent;
+    border: 1px solid white;
+    font-size: 12px;
+    color: white;
+    font-family: 'DOSGothic';
+    cursor: pointer;
+    margin: 5px;
+    height: 30px;
+}
+.bt{
+    margin-bottom: 20px;
+}
+.bt:hover{
+    background-color: #2A2649;
+}
+
+.ui-dialog-titlebar{
+    display: none;
+}
+.ctedit:hover{
+    cursor:pointer;
+}    
+#commentmodal{
+    height: 72vh;
+    width: 65vw;
+    top: 18%;
+    left: 20%;
+}
+#star{
+    width: 100%; 
+    height:100%;
+}
+#dialog, #ctdialog{
+    box-sizing: border-box;
+    z-index:9999999999; 
+    position:absolute;
+    font-size:28px;
+    background-color: rgb(255, 255, 255);
+    color:black;
+    width:100% !important;
+    text-align: center;
+    top: -100px; 
+    padding: 30px;
+    border-radius: 1rem;           
+    }
+    #cteditdialog{
+    box-sizing: border-box;
+    z-index:9999999999; 
+    position:absolute;
+    font-size:20px;
+    color:white;         
+    }
+
+.dialogbtn{
+    margin: auto;
+}
+.yes, .no, .ctyes, .ctno{
+    font-size: 15px;
+    font-family: 'UhBeemysen';
+    border:none;
+    cursor: pointer;
+    margin:10px;
+    border-radius: 0.5rem;
+    background-color: #4e4e87;
+    color: white;
+    width: 50px;
+}
+
+.ctdelete{
+cursor: pointer;
+}
+@media only screen and (min-width:768px) {
+    #postmodal{
+height: 72vh;
+width: 65vw;
+top: 18%;
+left: 20%;
+}
+
+.modalbody{
+display: grid;
+grid-template: 1fr / 1fr 1fr;
+padding: 30px;
+grid-gap: 20px;
+}
+
+.right{
+margin-left: 15px;
+}
+
+#textbody{
+height: 25vh;
+width: 90%;
+height: 30vh;
+}
+
+#ctcont{
+height: 10vh;
+width: 84%;
+padding: 15px;
+font-size: 18px;
+margin-top: 3vh;
+}
+
+#commentarea{
+overflow: scroll;
+color: black;
+height: 40vh;
+width: 95%;
+background-color: white;
+padding: 20px;
+border-radius: 1rem;
+font-size: 18px;
+word-break:break-all;
+white-space:pre-wrap;
+}
+
+#ct-title{
+color: white;
+font-size: 35px;
+font-family:'UhBeemysen';
+line-height: 50px;
+border-top: 1px white dashed;
+margin-left: 10px;
+}
+.bt{
+margin-top: 0.5rem;
+}
+
+#ctsave{
+background: transparent;
+border: 1px solid white;
+font-size: 12px;
+color: white;
+font-family: 'Noto Serif KR', serif;
+cursor: pointer;
+margin-top: 0.5rem;
+height: 30px;
+}
+
+#ctsave:hover{
+background-color: #2A2649;
+}
+.edit{
+display: flex;
+}
+
+
+label input{
+color: white;
+}
+
+#here{
+background-color: white;
+border-radius: 1rem;
+height: 40px;
+width: 60px;
+color: black;
+font-size: 30px;
+font-family: 'UhBeemysen';
+border: 0;
+cursor: pointer;
+}
+
+#other{
+font-size: 35px;
+margin-bottom: 8px;
+}
+
+#commentarea{
+height: 40.5vh;
+}
+
+}

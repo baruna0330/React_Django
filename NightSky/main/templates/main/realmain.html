@@ -1,0 +1,971 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <style>
+        @font-face { font-family: 'UhBeemysen'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeemysen.woff') format('woff'); font-weight: normal; font-style: normal; }
+        @font-face { font-family: 'DOSGothic'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff') format('woff'); font-weight: normal; font-style: normal; }
+    
+        /* style.css */
+        body{
+            font-family: 'DOSGothic';
+        }
+
+        /* style.css */
+        a{
+            color: white;
+        }
+
+        /* reselecting emotions */
+        #reselect{
+            display: inline-block;
+            position: absolute;
+            top: 5%;
+            left: 1%;
+            font-size: 16px;
+            text-shadow: 0 0 5px #888;
+            margin-top: 10px;
+        }
+        #reselect:hover{
+            top: 47px;
+        }
+        #reselect a{
+            color: white;
+        }
+        @media only screen and (max-width : 480px) {
+            #reselect{
+            display: inline-block;
+            position: absolute;
+            top: 5%;
+            left: 58%;
+            font-size: 16px;
+            text-shadow: 0 0 5px #888;
+            margin-top: 10px;
+        }
+        #reselect a{
+            text-align: end;
+        }
+    }
+    /* Custom, iPhone Retina : ~ 320px */
+    @media only screen and (max-width : 320px) {
+        #reselect{
+            display: inline-block;
+            position: fixed;
+            top: 5%;
+            left: 50%;
+            font-size: 16px;
+            text-shadow: 0 0 5px #888;
+            margin-top: 10px;
+        }
+        #reselect a{
+            text-align: end;
+        }
+    }
+        
+    
+
+        /* search posts */
+        .option{
+            box-sizing: content-box;
+            display: inline-block;
+            position: absolute;
+            left: 45px;
+            top: 110px;
+        }
+
+        #search{
+            width: 8rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+            color: white;
+            font-size: 15px;
+            -webkit-appearance: textfield;
+        }
+        #search::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+        #search-btn{
+            display: inline-block;
+            position: relative;
+            top: 8px;
+            left: 5px;
+            border: none;
+            height: 27px;
+            width: 40px;
+            border-radius: 1rem;
+            font-family: 'UhBeemysen';
+            font-size: 1rem;
+        }
+        #search-btn:hover{
+            cursor: pointer;
+        }
+
+        /* modal for post */
+        /** left div **/
+        /*** writer of text ***/
+        #other:hover{
+            cursor:pointer;
+        }
+        /*** original text (read only)  style.css ***/
+        #textbody{
+            height: 23vh;
+            width: 90%;
+        }
+
+        /** right div **/
+        /*** comment section  style.css ***/
+        #commentarea{
+            height: 41vh;
+        }
+
+        /* move to other page */
+        #toother:hover{
+            cursor:pointer;
+        }
+
+        /* edit comment */
+        .ctedit:hover{
+            cursor:pointer;
+        }
+
+        #pagenate{
+            margin: 1rem;
+        }
+        #dialog, #ctdialog{
+        box-sizing: border-box;
+        z-index:9999999999; 
+        position:absolute;
+        font-size:28px;
+        background-color: rgb(255, 255, 255);
+        color:black;
+        width:100% !important;
+        text-align: center;
+        top: -100px; 
+        padding: 30px;
+        border-radius: 1rem;           
+        }
+        #cteditdialog{
+        box-sizing: border-box;
+        z-index:9999999999; 
+        position:absolute;
+        font-size:20px;
+        color:white;         
+        }
+
+    .dialogbtn{
+        margin: auto;
+    }
+    .yes, .no, .ctyes, .ctno{
+        font-size: 15px;
+        font-family: 'UhBeemysen';
+        border:none;
+        cursor: pointer;
+        margin:10px;
+        border-radius: 0.5rem;
+        background-color: #4e4e87;
+        color: white;
+        width: 50px;
+    }
+
+    .ctdelete{
+    cursor: pointer;
+    }
+    @media only screen and (max-width : 480px) {
+        .user_title{
+            text-align: center;
+            margin-top: 5%;
+            left:0;
+            top: 0;
+            position: initial;
+            display: block;
+
+        }
+    }
+    /* Custom, iPhone Retina : ~ 320px */
+    @media only screen and (max-width : 320px) {
+        .user_title{
+            position: initial;
+            display: block;
+            text-align: center;
+            margin-top: 5%;
+            left:0;
+            top: 0;
+
+        }
+    }
+    @media only screen and (min-width:768px) {
+        #postmodal{
+  height: 72vh;
+  width: 65vw;
+  top: 18%;
+  left: 20%;
+}
+
+.modalbody{
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  padding: 30px;
+  grid-gap: 20px;
+}
+
+.right{
+  margin-left: 15px;
+}
+
+#textbody{
+  height: 25vh;
+  width: 90%;
+  height: 30vh;
+  margin-top: 2%;
+}
+
+#ctcont{
+  height: 10vh;
+  width: 84%;
+  padding: 15px;
+  font-size: 18px;
+  margin-top: 3vh;
+}
+
+#commentarea{
+  overflow: scroll;
+  color: black;
+  height: 40vh;
+  width: 95%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 1rem;
+  font-size: 18px;
+  word-break:break-all;
+  white-space:pre-wrap;
+}
+
+#ct-title{
+  color: white;
+  font-size: 35px;
+  font-family:'UhBeemysen';
+  line-height: 50px;
+  border-top: 1px white dashed;
+  margin-left: 10px;
+}
+.bt{
+  margin-top: 0.5rem;
+}
+
+#ctsave{
+  background: transparent;
+  border: 1px solid white;
+  font-size: 12px;
+  color: white;
+  font-family: 'Noto Serif KR', serif;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  height: 30px;
+}
+
+#ctsave:hover{
+  background-color: #2A2649;
+}
+.edit{
+    display: flex;
+}
+
+
+label input{
+    color: white;
+}
+
+#here{
+    background-color: white;
+    border-radius: 1rem;
+    height: 40px;
+    width: 60px;
+    color: black;
+    font-size: 30px;
+    font-family: 'UhBeemysen';
+    border: 0;
+    cursor: pointer;
+}
+
+#other{
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+#commentarea{
+    height: 40.5vh;
+}
+
+ }
+
+/* Desktop Device */
+    @media only screen and (min-width:1025px) {
+        #postmodal{
+  height: 72vh;
+  width: 65vw;
+  top: 18%;
+  left: 20%;
+}
+
+.modalbody{
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  padding: 30px;
+  grid-gap: 20px;
+}
+
+.right{
+  margin-left: 15px;
+}
+
+#textbody{
+  height: 25vh;
+  width: 90%;
+  height: 30vh;
+  margin-top: 2%;
+}
+
+#ctcont{
+  height: 10vh;
+  width: 84%;
+  padding: 15px;
+  font-size: 18px;
+  margin-top: 3vh;
+}
+
+#commentarea{
+  overflow: scroll;
+  color: black;
+  height: 40vh;
+  width: 95%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 1rem;
+  font-size: 18px;
+  word-break:break-all;
+  white-space:pre-wrap;
+}
+
+#ct-title{
+  color: white;
+  font-size: 35px;
+  font-family:'UhBeemysen';
+  line-height: 50px;
+  border-top: 1px white dashed;
+  margin-left: 10px;
+}
+.bt{
+  margin-top: 0.5rem;
+}
+
+#ctsave{
+  background: transparent;
+  border: 1px solid white;
+  font-size: 12px;
+  color: white;
+  font-family: 'Noto Serif KR', serif;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  height: 30px;
+}
+
+#ctsave:hover{
+  background-color: #2A2649;
+}
+.edit{
+    display: flex;
+}
+
+
+label input{
+    color: white;
+}
+
+#here{
+    background-color: white;
+    border-radius: 1rem;
+    height: 40px;
+    width: 60px;
+    color: black;
+    font-size: 30px;
+    font-family: 'UhBeemysen';
+    border: 0;
+    cursor: pointer;
+}
+
+#other{
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+#commentarea{
+    height: 40.5vh;
+}
+    
+    }
+
+
+    </style>
+
+    <script>
+    var pk;
+    var wr;
+    </script>
+
+</head>
+
+<body>
+   
+
+    <div id="pagenate">
+        <a href="?page=1">처음 밤하늘로</a>
+        {% if pages.has_previous %}
+            <a href="?page={{pages.previous_page_number}}">이전 밤하늘로</a>
+        {% endif %}
+        <span>{{pages.number}}</span>
+        <span>of</span>
+        <span>{{pages.paginator.num_pages}}</span>
+        {% if pages.has_next %}
+            <a href="?page={{pages.next_page_number}}">다음 밤하늘로</a>
+        {% endif %}
+        <a href="?page={{pages.paginator.num_pages}}">마지막 밤하늘로</a>
+        </div>
+
+        <div id="reselect"><a href="{% url 'main'%}">감정 다시선택하기</a></div>
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+    
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // hide the menu when the page load
+                $("#navigation-list").hide();
+                // when .menuBtn is clicked, do this
+                $(".menuBtn").click(function() {
+                    // open the menu with slide effect
+                    $("#navigation-list").slideToggle(300);
+                });
+            });
+            $(document).ready(function(){
+                $("#burger-container").on('click', function(){
+                    $(this).toggleClass("open");
+                });
+            });
+        </script>
+            <span class="menuBtn">
+                <div id="burger-container">
+                    <div id="burger">
+                        <img src="{% static 'img/myhome.png' %}" style="transform: rotate(90deg); margin-left: 3vw; margin-top: 2vh;">
+                    </div>
+                </div>
+            </span>
+            <div id="navigation-list">
+                
+                    <div id="aaa"><a href="{% url 'mysky' %}">나의 하늘로</a></div>
+                    <div id="bbb"><a href="{% url 'user_update' %}">마이페이지</a></div>
+                    <div id="ccc"><a href="{% url 'logout' %}">로그아웃</a></div>
+                    <div id="ddd"><form action="{% url 'mysearch' %}" method="POST">{% csrf_token %}
+                        <input name="word" type="search" placeholder="글내용/감정/글쓴이" id="search">
+                        <button type="submit" id="search-btn">검색</button>
+                    </form></div>
+                
+            </div>
+
+    <!--<div class=hi>
+    <h3>반갑습니다, {{user.username}}님!</h3>
+    </div>-->
+    <div id="my" name="{{me}}"></div>
+    <!--<div id="moon"><a href="{% url 'mysky' %}"><img src="{% static 'img/moon.png' %}" id="moon-img"></a></div>-->
+    {% for post in pages %}
+        {% if post.image == "star" %}
+    
+        <div class="star" id="1">
+                <div class="update" name="{{post.id}}" >
+                    {% if post.comments.count > 10 %}
+                        <img src="{% static 'img/star_white.png' %}" onclick="modalfunc();">
+                    {% elif post.comments.count > 5 %}
+                        <img src="{% static 'img/star_pink.png' %}" onclick="modalfunc();">
+                    {% elif post.comments.count >= 0 %}
+                        <img src="{% static 'img/star_yellow.png' %}" onclick="modalfunc();">
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="cloud" id="1">
+                <div class="update" name="{{post.id}}" >
+                    {% if post.comments.count > 10 %}
+                        <img src="{% static 'img/cloud_pixel.png' %}" onclick="modalfunc();">
+                    {% elif post.comments.count > 5 %}
+                        <img src="{% static 'img/cloud_pixel.png' %}" onclick = "modalfunc();">
+                    {% elif post.comments.count >= 0 %}
+                        <img src="{% static 'img/cloud_pixel.png' %}" onclick = "modalfunc();">
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        <script>
+        
+            if(document.getElementById("1")){
+                test();
+            }
+            function test(){
+                var width=screen.availWidth;
+                var height=screen.availHeight;
+                var str1 = Math.round(Math.random()*height);
+                var str2 = Math.round(Math.random()*width);
+                
+                while(1){
+                    if(str2>width-width*0.1||str2<width*0.2){
+                        str2=Math.round(Math.random()*width);
+                    }
+                    else{
+                        break;
+                    }
+                }
+                while(1){
+                    if(str1>height-height*0.2||str1<height*0.3){
+                        str1=Math.round(Math.random()*height);
+                    }
+                    else{
+                        break;
+                    }
+                }
+                console.log(str2, str1);
+                document.getElementById("1").style.top = str1+'px';
+                document.getElementById("1").style.left = str2+'px';
+                document.getElementById("1").setAttribute("id", "2");
+            }
+            
+        </script>
+            
+    {% endfor %}
+
+    <div id="postmodal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class = "modalbody">
+                <div class="left">
+                    <span id="other" class="textwriter"></span>
+                    <button type="button" class="subscribe"></button>
+                    <textarea rows="17" id="textbody" value="" readonly="readonly"></textarea>
+                    <textarea rows="3" id="ctcont" name="commentcont" placeholder="공감의 말을 남겨주세요" required></textarea><br>
+                    <input type="button" id="ctsave" value="댓글저장"> 
+                </div>
+                <div class="right">
+                    <span id="ct-title">공감의 말들</span>
+                    <div id="commentarea"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+    $( function() {           
+        $("#ctdialog").dialog({
+                autoOpen: false,
+                modal: true,
+                height:100, 
+                show: {
+                effect: "blind",
+                duration: 100
+                },
+                hide: {
+                effect: "fade",
+                duration: 100
+                }
+        });                 
+    });
+    $( function() {           
+        $("#cteditdialog").dialog({
+                autoOpen: false,
+                modal: true,
+                height:100, 
+                show: {
+                    effect: "blind",
+                    duration: 100
+                },
+                hide: {
+                    effect: "fade",
+                    duration: 100
+                }
+        });                 
+    });
+    </script>
+
+    <div id="ctdialog">
+        <div id="dialog-ctn">
+            이 댓글을 정말 삭제하시겠습니까?<br><br>
+            <div class="dialogbtn">
+                <button type="button" class="ctyes"><b>네</b></button>
+                <button type="button" class="ctno"><b>아니오</b></button>
+            </div>
+        </div>
+    </div>
+    <div id="cteditdialog">
+        <div id="dialog-ctn">
+            <div class="dialogbtn">
+                <textarea id="commentbody" value="" style="font-size: 15px; width: 300px; height: 150px;"></textarea><br>
+                수정하시겠습니까?<br>
+                <button type="button" class="edityes"><b>네</b></button>
+                <button type="button" class="editno"><b>아니오</b></button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function(){
+        var postmodal=document.getElementById('postmodal');
+        postmodal.style.display="none";
+    });
+
+    function modalfunc()
+    {
+        var postmodal = document.getElementById('postmodal'); 
+        postmodal.style.display="block";
+        
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+                    postmodal.style.display = "none";
+        };
+        window.onclick = function(event) {
+            if (event.target == postmodal) {
+                postmodal.style.display = "none";
+            }
+        };
+    };
+
+    $(".update").click(function(){
+        pk=$(this).attr('name');
+
+        $.ajax({
+            type:"GET",
+            url: "post_total/",
+            data: {'pk': pk},
+            dataType: "json",
+            contentType: "json",
+            success: function(msg){
+                wr=msg['writer'];
+                $(".textwriter").text("");
+                $("#textbody").val(msg['body']);
+        
+                $(".textwriter").append(msg['writer']);
+            
+                $(".textwriter").append("님");
+                $(".subscribe").text("구독하기");
+                //$("#textpk").val(msg['pk']);
+                //$("#textdate").val(msg['date']);
+                $(document).on('click', '#other', function(){
+                    var url="{% url 'othersky' 123 %}".replace('123', pk);
+                    location.href=url
+                });
+            },
+            error: function(response){
+                alert('fail');
+                $("#textbody").html("오류발생");
+            }
+        });
+        
+        
+    });
+
+    $(".subscribe").click(function(){
+        $.ajax({
+            type:"POST",
+            url: "subscribe/",
+            data: {'pk': pk, 'csrfmiddlewaretoken':'{{ csrf_token }}'},
+            success: function(){
+                alert("successsub");
+            },
+            error: function(response){
+                alert('fail');
+            }
+        });     
+    });
+
+
+
+    /*댓글 가져오기 ajax*/
+    $(".update").click(function(){
+        pk=$(this).attr('name');
+        me=$("#my").attr('name');
+    $.ajax({
+        type:"GET",
+            url: "postdetail/",
+            data: {'pk': pk},
+            dataType: "json",
+            contentType: "json",
+            success: function(comments){
+                $("#commentarea").text("");
+                var list=comments;
+                //console.log(list);
+                //console.log(comments.length);
+                for(var i=0; i < list.comments.length;i++){
+                    var commentct=list.comments[i];
+                    var time=list.comments[++i];
+                    var writer=list.comments[++i];
+                    var commentpk=list.comments[++i];   
+                    console.log(comments); 
+                    $("#commentarea").append("<span id='toother' class='write'>"+"<b>"+"<a style='color:black;' href="+"/commentothersky/"+writer+">"+writer+"</a>"+"</b>"+"  </span>");
+                    $("#commentarea").append("<span class='time'> ========"+time+"</span>");
+                    if (writer == me){
+                        $("#commentarea").append("<div class='comment' style='color:#5870BC;'><b>"+commentct+"</b></div><div id='myctbtn'><span class='ctedit' name="+commentpk+">수정</span> | <span class='ctdelete'  name="+commentpk+">삭제</span><hr></div>");
+                        
+                    }
+                    else
+                        $("#commentarea").append("<div class='comment' style='color:#5870BC;'>"+commentct+"<hr>"+"</div>");                        
+
+                }
+                $("#ctcont").val("");        
+            },
+            error: function(response){
+                alert('failget');
+                $("#commentarea").html("오류발생");
+            }
+        });
+    });
+    /*댓글쓰기*/
+        $("#ctsave").click(function(){  
+            var ctcont=$('#ctcont').val();
+            //alert(ctcont);
+            $.ajax({
+                type:"POST",
+                url:"postdetail/",
+                data:{'postpk':pk, 'content': ctcont, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success:function(response){
+                    me=$("#my").attr('name');
+
+                    //var postmod = document.getElementById('postmodal'); 
+                    //postmod.style.display="none";
+                    //location.href="{% url 'realmain' %}"
+                    $.ajax({
+                            type:"GET",
+                            url: "postdetail/",
+                            data: {'pk': pk},
+                            dataType: "json",
+                            contentType: "json",
+                            success: function(comments){
+                                $("#commentarea").text("");
+                                var list=comments;
+                                console.log(list);
+                                //console.log(comments.length);
+                                for(var i=0; i < list.comments.length;i++){
+                                    console.log(i);
+                                    //var j=i;
+                                    var commentct=list.comments[i];
+                                    var time=list.comments[++i];
+                                    var writer=list.comments[++i];  
+                                    var commentpk=list.comments[++i];                  
+                                    //console.log(comment);
+                                    $("#commentarea").append("<span id='toother' class='write'>"+"<b>"+"<a style='color:black;' href="+"/commentothersky/"+writer+">"+writer+"</a>"+"</b>"+"  </span>");
+                                    $("#commentarea").append("<span class='time'> ========"+time+"</span>");
+                                    if (writer == me){
+                                        $("#commentarea").append("<div class='comment' style='color:#5870BC;'><b>"+commentct+"</b></div><div id='myctbtn'><span class='ctedit' name="+commentpk+">수정</span> | <span class='ctdelete'  name="+commentpk+">삭제</span><hr></div>");
+                                    }
+                                    else
+                                        $("#commentarea").append("<div class='comment' style='color:#5870BC;'>"+commentct+"<hr>"+"</div>");                        
+                                
+                                }
+                                $("#ctcont").val("");
+                                
+                            },
+                            error: function(response){
+                                alert('failgetget');
+                                $("#commentarea").html("오류발생");
+                            }
+                        });
+                },
+                error:function(response){
+                    alert('failss');
+                }
+            })
+        });
+        $( function() {         
+        $("#ctdialog").dialog({
+                autoOpen: false,
+                //modal: true,
+                height:100, 
+                show: {
+                effect: "blind",
+                duration: 100
+                },
+                hide: {
+                effect: "fade",
+                duration: 100
+                }
+        });                   
+    });
+    var cpk;
+    $(document).on('click','.ctdelete', function(){
+        cpk=$(this).attr('name');
+        //alert('Clicked'+cpk);
+        $("#star").css({"background-color":"black", "opacity":"0.5"});
+        $("#postmodal").css({"opacity":"0.5"});
+        $("#ctdialog").dialog("open");
+
+    });
+    $(document).on('click', '.ctedit', function(){
+    cpk=$(this).attr('name');
+    $("#star").css({"background-color":"black", "opacity":"0.5"});
+    $("#postmodal").css({"opacity":"0.5"});
+    $("#cteditdialog").dialog("open");
+    $.ajax({
+        type:"GET",
+        url:"mycommentedit/",
+        data:{'pk':cpk},
+        success:function(response){
+        $("#commentbody").val(response['body']);
+        },
+        error:function(resposne){
+        alert("제발 안되겠니");
+        }
+    });
+    
+    });
+
+    $(".ctyes").click(function() {
+        pk=cpk;
+        $.ajax({
+            type:"GET",
+            url:"mycommentdelete/",
+            data:{'pk':pk},
+            success:function(response){
+                alert('댓글 삭제가 완료되었습니다.');
+                location.href="{% url 'realmain' %}"
+            },
+            error:function(response){
+                alert('fail4');
+            }
+        })
+    });
+
+    $(".ctno").click(function(){
+        $("#star").css({"background-color":"", "opacity":""});
+        $("#postmodal").css({"opacity":""});
+        $("#ctdialog").dialog("close");
+    });
+    $(".edityes").click(function(){
+        var comcontent=$('#commentbody').val();
+        $.ajax({
+        type:"POST",
+        url:"mycommentedit/",
+        data:{'pk':cpk, 'content': comcontent, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        success:function(response){
+            alert('댓글 수정이 완료되었습니다.');
+            location.href="{% url 'realmain' %}"
+        },
+        error:function(response){
+            alert('너도 제발 되면 안되겠니');
+        }
+        })
+    });
+    $(".editno").click(function(){
+        $("#star").css({"background-color":"", "opacity":""});
+        $("#postmodal").css({"opacity":""});
+        $("#cteditdialog").dialog("close");
+    });    
+
+        /*별 반짝임과 별똥별 효과*/
+    class Star{
+        constructor(targetStar){
+            this.targetStar = targetStar;
+            this.repeat;
+        }
+        
+        shine(){  /*별 반짝임 함수*/
+            var $element = this.targetStar;
+            var time = Math.random()*(3000)+2000;
+            this.repeat = setInterval(function () {
+                $element.fadeIn(1000, function () {
+                    $element.fadeOut(1500, function () {
+                    $element.fadeIn(1000)
+                    });
+                });
+            }, time); 
+        }
+        shootingStar(){  /*별똥별 효과*/
+            clearInterval(this.repeat);  /*반짝임 멈춤*/
+            this.targetStar.fadeIn(1000, this.tail());  /*꼬리*/
+            var t = parseInt(this.targetStar.css('top'),10);
+            var l = parseInt(this.targetStar.css('left'),10);
+            var max_t = (700-t)/50-2;
+            var max_l = (document.body.clientWidth-l)/50-2;
+            var max = max_t<max_l?max_t:max_l;
+            for(var j=0; j<max; j++){  /*떨어지는 효과*/
+                this.fall();
+            }
+            this.targetStar.fadeOut(2000, function(){
+                $('#tailSky').remove();
+                $(this).remove();
+            })
+        }
+        fall(){  /*떨어지는 모션*/
+            $(this.targetStar).animate({
+            left: '+=50',
+            top: '+=50'
+            }, 400, 'linear', function(){
+                ;
+            });
+        }
+        tail(){  /*꼬리 추가*/
+            this.targetStar.append('<div id="tailSky"></div>');
+            $("#tailSky").append('<div id="tail"></div>');
+        }
+    
+    }
+
+    class Cloud{
+    constructor(targetCloud){
+          this.targetCloud = targetCloud;
+          this.interval;
+      }
+
+      upDown(){
+          for(var j=0; j<10; j++)
+            this.move();
+      }
+
+      move(){
+        var time = Math.random()*(1000)+1500;
+        $(this.targetCloud).animate({
+            top: '-=7'
+        }, time, 'linear');
+        $(this.targetCloud).animate({
+                    top: '+=7'
+        }, time, 'linear')
+      }
+    }
+
+    /*star div 마다 Star 객체 만들어서 반짝임&별똥별 효과 줌*/
+    var len = $('.star').length;
+    var starObjs = new Array();
+    for(var i=0; i<len; i++){
+        starObjs[i] = new Star($('.star').eq(i));
+        starObjs[i].shine();
+    }
+
+    var len2 = $('.cloud').length;
+    var cloudObjs = new Array();
+    for(var i=0; i<len2; i++){a
+        cloudObjs[i] = new Cloud($('.cloud').eq(i));
+        cloudObjs[i].upDown();
+    }
+    
+    </script>
+
+</body>
+</html>

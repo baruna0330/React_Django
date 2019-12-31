@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @font-face { font-family: 'Arita-buri-SemiBold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Arita-buri-SemiBold.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'DOSGothic'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+   /* style.css */
+   body{
+        background-image: url("/static/img/bg2.png");
+        font-family: 'DOSGothic';
+   }
+
+   /* title */
+   .title{
+      font-family: 'Arita-buri-SemiBold';
+      color:rgb(235, 230, 255);
+      margin-top: 10%;
+      text-align: center;
+    }
+
+    /* div contains form, buttons */
+   .register{
+      color:rgb(237, 232, 255);
+      background: rgba(56, 48, 85, 85%);
+      margin: 3% auto;
+      border: rgb(214, 191, 215) 1.5px solid;   
+      padding: 10%;
+    }
+
+    /* form form resgister */
+    input{
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid white;
+      color: white;
+      font-family: 'DOSGothic';
+      float: right;
+    }
+
+    /* buttons */
+    button{
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      cursor: pointer;
+      margin-top: 10%;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-family: 'DOSGothic';
+    }
+    button:hover{
+      background-color: rgb(109,95,160);
+    }   
+
+    /* back button */
+    #back{
+      color:rgb(178, 173, 194)
+    }
+
+    /* div which contains buttons */
+    .buttons{
+      text-align:  center;
+    }
+
+    @media all and (orientation: portrait){
+      .title{
+        margin-top: 25%;
+        font-size: 10vw;
+      }
+      .register{
+        margin-top: 10%;
+        font-size: 5vw;
+        border: none;
+      }
+
+      input{
+        width: 50%;
+        font-size: 4vw;
+      }
+
+      button{
+        font-size: 4vw;
+        padding: 3%;
+      }
+    }
+
+    @media all and (orientation: landscape){
+      .title{
+        font-size: 10vh;
+      }
+      .register{
+        padding: 5%;
+        width: 40%;
+        font-size: 3vh;
+      }
+      input{
+        width: 20vw;
+        font-size: 2.5vh;
+      }
+
+      button{
+        font-size: 3vh;
+        padding: 2%;
+      }
+    }
+
+    @media (min-width: 1000px){
+      .title{
+        margin-top: 5%;
+      }
+
+      .register{
+        width: 35%;
+      }
+
+    }
+
+   </style>
+</head>
+
+<body>
+        <div class="title">회원 가입</div>
+
+        <div class="register">
+            <form action="{% url 'register' %}" method="POST">{% csrf_token %}
+                아이디:<input name="username" placeholder='' type="text" value='{{username}}'  required><br><br>
+                {% if message2 %}
+                        {{message2}}<br><br>
+                {% endif %}
+                닉네임:<input name="nickname" placeholder='' type="text" value='{{nickname}}'  required><br><br>
+                이메일:<input name="email" placeholder='' type="text" value='{{email}}' required><br><br>
+                비밀번호:<input name="password1" id="pw" placeholder='' type="password" required><br><br>
+                비밀번호 확인:<input name="password2" id="checkpw" placeholder='' type="password" required><br><br>
+
+                {% if message1 %}
+                        {{message1}}<br><br>
+                {% endif %}
+                
+                <!--{{form.as_p}}-->
+                <div class="buttons">
+                        <button type="submit">가입하기</button>
+                        <button id="back" type="button" onClick="location.href='{% url 'home' %}'">뒤로가기</button>
+                </div>
+            </form>
+        </div>
+</body>
+</html>

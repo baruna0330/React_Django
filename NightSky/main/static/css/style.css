@@ -1,0 +1,297 @@
+*:focus { outline:none; }
+body{ 
+  background-image: url("/static/img/bg_pixel.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  }
+
+body::-webkit-scrollbar { 
+    display: none !important;
+  }
+
+html {
+  height: 100%;
+}
+html body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+/* link */
+a{
+  text-decoration: none;
+}
+
+/* stars */
+.star{
+  display: inline-block;
+  position: absolute;
+}
+.star:hover{
+  cursor: pointer;
+}
+.star img{
+  width: 38px;
+  height: 38px;
+}
+
+/* clouds */
+.cloud{
+  display: inline-block;
+  position:absolute;
+}
+.cloud:hover{
+    cursor:pointer;
+}
+.cloud img{
+  width: 180px;
+  height: 100px;
+}
+.cloud img:nth-child(1){
+  opacity: 0.3;
+}
+.cloud img:nth-child(2){
+  opacity: 0.6;
+}
+
+
+/* modal for post */
+#myModal{
+  height: 70vh;
+  top: 15%;
+  text-align: center;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  height: 75vh;
+  width: 100%;
+  margin:0;
+}
+/** Modal Content/Box **/
+.modal-content {
+  background-color: rgba(56, 48, 85, 85%);
+  /*padding: 20px;*/
+  border: 0;
+  width: 100%; /* Could be more or less, depending on screen size */
+  height: 95%;
+  margin:0;
+  overflow-x: hidden;
+}
+
+#new_emo{
+  height: 25vh;
+  width: 87vw;
+  font-size: 15px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+/** writer **/
+#other{
+  font-size: 35px;
+  margin-bottom: 8px;
+}
+/** text (readonly) **/
+textarea{
+  resize:none;
+  font-family: 'UhBeemysen';
+  border-radius: 1rem;
+  border: 0px;
+  padding: 20px;
+  font-size: 25px;
+  overflow: scroll;
+}
+
+
+/****read post********/
+#postmodal{
+  border:0;
+  height: 72vh;
+  width: 100%;
+  top: 18%;
+  margin:0;
+  padding:0;
+  overflow: hidden;
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+}
+
+/*.modalbody{
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  padding: 30px;
+  grid-gap: 20px;
+}
+
+.right{
+  margin-left: 20px;
+}*/
+
+#textbody{
+  padding:0;
+  margin:0;
+  height:25vh;
+  width:100vw;
+}
+
+/* new comment */
+/** new comment **/
+/*#ctcont{
+  height: 10vh;
+  width: 93%;
+  padding: 15px;
+  font-size: 18px;
+  margin-top: 3vh;
+}*/
+#ctcont{
+  margin:0;
+  padding:0;
+  height:10vh;
+  width:100vw;
+}
+/** save button **/
+#ctsave{
+  background: transparent;
+  border: 1px solid white;
+  font-size: 12px;
+  color: white;
+  font-family: 'Noto Serif KR', serif;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  height: 30px;
+}
+#ctsave:hover{
+  background-color: #2A2649;
+}
+
+/* comments section */
+#commentarea{
+  overflow: scroll;
+  color: black;
+  height: 20vh;
+  width: 100vw;
+  background-color: white;
+  /*padding: 20px;*/
+  border-radius: 1rem;
+  font-size: 18px;
+  word-break:break-all;
+  white-space:pre-wrap;
+}
+#ct-title{
+  color: white;
+  font-size: 35px;
+  font-family:'UhBeemysen';
+  line-height: 50px;
+  margin-left: 10px;
+}
+
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* menu buttons */
+.menu-main{
+  float: right;
+  margin-top: 3vh;
+  margin-right: 3vw;
+  font-family: 'DOSGothic';
+}
+
+.menu-main a{
+    color: white;
+    font-size: 1vw;
+}
+
+.menu-main div{
+    text-align: justify;
+    text-align: center;
+    display: inline-block;
+    margin: 1vw;
+}
+
+.menu-main div img{
+    display: block;
+    margin: auto;
+    margin-bottom: 1vh;
+}
+/** menu images **/
+#mySkyBt img{
+  width: 3vw; 
+}
+#myPageBt img{
+  width: 3vw; 
+}
+#logoutBt img{
+  width: 3vw; 
+}
+#otherSkyBt img{
+  width: 3vw;
+}
+
+/* title */
+.user_title{
+  display: inline-block;
+  position: absolute;
+  left: 20%;
+  color: white;
+  font-size: 8vw;
+  font-family: 'DOSGothic';
+  text-align:center;
+}
+#nav {float:right};
+#nav ul.menu li a:hover{ background:#eee; }
+#nav ul.menu li .sub a:hover{ background:#444; color:#fff; }
+
+
+#burger img{
+  width:10%;
+  height:10%;
+  top:0;
+}
+
+#aaa{
+  width:35%;
+  padding: 3vw;
+  color: white;
+  background-color: rgba(162, 153, 211, 0.6);
+  text-align:center;
+}
+#bbb{
+  width:35%;
+  padding: 3vw;
+  color: white;
+  background-color: rgba(162, 153, 211, 0.6);
+  text-align:center;
+}
+#ccc{
+  width:35%;
+  padding: 3vw;
+  color: white;
+  background-color: rgba(162, 153, 211, 0.6);
+  text-align:center;
+}
+
+#aaa:hover, #bbb:hover, #ccc:hover{
+  border-right: 1px white solid;
+}
+#aaa a:hover, #bbb a:hover, #ccc a:hover{
+  color: white;
+}
