@@ -1,7 +1,7 @@
 Django==2.0.13
 pytz==2019.2
 dj-database-url==0.5.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 psycopg2-binary==2.8.4
 whitenoise==4.1.4
 gunicorn==20.0.4
